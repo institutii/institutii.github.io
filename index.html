@@ -4,27 +4,41 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://openlayers.org/en/v3.4.0/css/ol.css" type="text/css">
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href="lib/vis.min.css" rel="stylesheet" type="text/css" />
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="./lib/d3.min.js"></script>
-    <script src="./lib/dagre-d3.min.js"></script>
-    <script src="./lib/mermaid.slim.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="lib/vis.min.js"></script>
+    <style type="text/css">
+
+      .vis.timeline .item.green {
+        background-color: greenyellow;
+        border-color: green;
+      }
+
+      .vis.timeline .item.orange {
+        background-color: gold;
+        border-color: orange;
+      }
+
+      .vis.timeline .item.blue {
+        background-color: aquamarine;
+        border-color: #40806A;
+      }
+
+      .vis.timeline .item.red {
+        background-color: darksalmon;
+        border-color: #8C5A49;
+      }
+
+    </style>
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="mermaid">
-            graph LR
-              step1(Analize Medicale) --- step2(Certificat Prenupţial)
-              step2 --- step3(Taxă Poştă)
-              step3 --- step4(Întocmire Dosar)
-              step4 --- step5(Alegere nume)
-              step5 --- step6(Înscriere Dosar)
-          </div>
+          <div id="timeline"></div>
         </div>
       </div>
       <div class="row">
@@ -33,6 +47,127 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      // DOM element where the Timeline will be attached
+      var container = document.getElementById('timeline');
+
+      var today = new Date("2015-03-31T13:56:58.438Z")
+      var today_plus_14 = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+      var event_date = today_plus_14
+      // Create a DataSet (allows two way data-binding)
+      var items = new vis.DataSet([
+          {
+            id: 'A',
+            content: 'Valabilitate Certificat (14 zile)',
+            start: "2015-04-06T04:00:00.438Z",
+            end: "2015-04-20T04:00:00.438Z",
+            type: 'background'
+          },
+          {
+            id: 'B',
+            content: 'Limită depunere<br/>(10 zile înainte de eveniment)',
+            start: "2015-04-06T04:00:00.438Z",
+            end: "2015-04-10T04:00:00.438Z",
+            type: 'background'
+          },
+          {
+            id: 1,
+            start: "2015-03-31T13:56:58.438Z",
+            end: "2015-03-31T14:56:58.438Z",
+            className: "green",
+            group: 6
+          },
+          {
+            id: "1-label",
+            content: 'Rezervare dată',
+            start: "2015-03-31T13:56:58.438Z",
+            group: 0
+          },
+          {
+            id: 3,
+            start: "2015-03-31T14:56:58.438Z",
+            end: "2015-03-31T15:56:58.438Z",
+            className: "orange",
+            group: 6
+          },
+          {
+            id: "3-label",
+            content: 'Taxă poştă',
+            start: "2015-03-31T14:56:58.438Z",
+            group: 1
+          },
+          {
+            id: 4,
+            start: new Date("2015-04-01T04:00:00.438Z"),
+            end: new Date("2015-04-01T06:00:00.438Z"),
+            className: "blue",
+            group: 6
+          },
+          {
+            id: "4-label",
+            content: 'Analize medicale',
+            start: new Date("2015-04-01T04:00:00.438Z"),
+            group: 2
+          },
+          {
+            id: 6,
+            content: 'Eliberare certificat prenupţial',
+            start: "2015-04-06T04:00:00.438Z",
+            group: 3
+          },
+          {
+            id: 7,
+            start: "2015-04-06T05:00:00.438Z",
+            end: "2015-04-06T06:00:00.438Z",
+            className: "red",
+            group: 6
+          },
+          {
+            id: "7-label",
+            content: "Depunere dosar",
+            start: "2015-04-06T05:00:00.438Z",
+            group: 4
+          },
+          {
+            id: 8,
+            content: 'Dată eveniment',
+            start: "2015-04-20T04:00:00.438Z",
+            group: 5
+          },
+        ]);
+
+      function idOrder(a, b) {
+        return b.id - a.id
+      }
+
+      var groups = new vis.DataSet([
+        {id: 0, content: ''},
+        {id: 1, content: ''},
+        {id: 2, content: ''},
+        {id: 3, content: ''},
+        {id: 4, content: ''},
+        {id: 5, content: ''},
+        {id: 6, content: ''}
+      ]);
+
+      // Configuration for the Timeline
+      var options = {
+        height: '300px',
+        align: 'right',
+        stack: false,
+        // min: new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000), // lower limit of visible range
+        // max: new Date(today_plus_14.getTime() + 2 * 24 * 60 * 60 * 1000), // upper limit of visible range
+        // start: new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000),
+        start: "2015-03-28T13:56:58.438Z",
+        end: "2015-04-21T04:00:00.438Z",
+        // zoomMax: 1000 * 60 * 60 * 24 * 20,
+        margin: { item: 1 },
+        editable: false
+      };
+
+      // Create a Timeline
+      var timeline = new vis.Timeline(container, items, groups, options);
+    </script>
     <script type="text/javascript">
       var map = L.map('map').setView([44.43, 26.10], 13);
 
