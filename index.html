@@ -32,6 +32,27 @@
         border-color: #8C5A49;
       }
 
+      .vis.timeline .item.brick {
+        background-color: orangered;
+        border-color: #470E0E;
+      }
+
+      .vis.timeline .background.green_background {
+        background-color: rgba(173, 255, 47, 0.4);
+      }
+
+
+      .vis.timeline .background.yellow_background {
+        background-color: rgba(255, 215, 0, 0.4);
+      }
+
+      .vis.timeline .background.blue_background {
+        background-color: rgba(127, 255, 212, 0.4);
+      }
+
+      .vis.timeline .background.red_background {
+        background-color: rgba(233, 150, 122, 0.4);
+      }
     </style>
   </head>
   <body>
@@ -61,39 +82,65 @@
             content: 'Valabilitate Certificat (14 zile)',
             start: "2015-04-06T04:00:00.438Z",
             end: "2015-04-20T04:00:00.438Z",
-            type: 'background'
+            type: 'background',
+            group: 3,
+            className: "blue_background"
           },
           {
             id: 'B',
             content: 'Limită depunere<br/>(10 zile înainte de eveniment)',
             start: "2015-04-06T04:00:00.438Z",
             end: "2015-04-10T04:00:00.438Z",
-            type: 'background'
+            type: 'background',
+            className: 'red_background',
+            group: 4
+          },
+          {
+            id: 'orar-1',
+            content: 'Orar oficiu',
+            start: "2015-03-31T05:00:00.438Z",
+            end: "2015-03-31T11:00:00.438Z",
+            type: 'background',
+            className: 'green_background',
+            group: 6
+          },
+          {
+            id: 'orar-2',
+            content: 'Orar poştă',
+            start: "2015-03-31T07:00:00.438Z",
+            end: "2015-03-31T13:00:00.438Z",
+            type: 'background',
+            className: 'yellow_background',
+            group: 6
           },
           {
             id: 1,
-            start: "2015-03-31T13:56:58.438Z",
-            end: "2015-03-31T14:56:58.438Z",
+            start: "2015-03-31T07:56:58.438Z",
+            end: "2015-03-31T08:56:58.438Z",
             className: "green",
+            content: "1h",
             group: 6
           },
           {
             id: "1-label",
             content: 'Rezervare dată',
-            start: "2015-03-31T13:56:58.438Z",
+            start: "2015-03-31T07:56:58.438Z",
+            className: "green",
             group: 0
           },
           {
             id: 3,
-            start: "2015-03-31T14:56:58.438Z",
-            end: "2015-03-31T15:56:58.438Z",
+            start: "2015-03-31T10:00:00.438Z",
+            end: "2015-03-31T11:00:00.438Z",
             className: "orange",
+            content: "1h",
             group: 6
           },
           {
             id: "3-label",
             content: 'Taxă poştă',
-            start: "2015-03-31T14:56:58.438Z",
+            start: "2015-03-31T10:00:00.438Z",
+            className: "orange",
             group: 1
           },
           {
@@ -104,16 +151,27 @@
             group: 6
           },
           {
+            id: 'orar-3',
+            content: 'Orar clinică',
+            start: "2015-04-01T04:00:00.438Z",
+            end: "2015-04-01T17:00:00.438Z",
+            type: 'background',
+            className: 'blue_background',
+            group: 6
+          },
+          {
             id: "4-label",
             content: 'Analize medicale',
-            start: new Date("2015-04-01T04:00:00.438Z"),
+            start: "2015-04-01T04:00:00.438Z",
+            className: "blue",
             group: 2
           },
           {
             id: 6,
             content: 'Eliberare certificat prenupţial',
             start: "2015-04-06T04:00:00.438Z",
-            group: 3
+            group: 3,
+            className: "blue"
           },
           {
             id: 7,
@@ -126,13 +184,15 @@
             id: "7-label",
             content: "Depunere dosar",
             start: "2015-04-06T05:00:00.438Z",
+            className: "red",
             group: 4
           },
           {
             id: 8,
             content: 'Dată eveniment',
             start: "2015-04-20T04:00:00.438Z",
-            group: 5
+            group: 5,
+            className: "brick"
           },
         ]);
 
@@ -152,21 +212,22 @@
 
       // Configuration for the Timeline
       var options = {
-        height: '300px',
+        // height: '300px',
         align: 'right',
         stack: false,
-        // min: new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000), // lower limit of visible range
-        // max: new Date(today_plus_14.getTime() + 2 * 24 * 60 * 60 * 1000), // upper limit of visible range
         // start: new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000),
-        start: "2015-03-28T13:56:58.438Z",
-        end: "2015-04-21T04:00:00.438Z",
         // zoomMax: 1000 * 60 * 60 * 24 * 20,
-        margin: { item: 1 },
+        min: "2015-03-28T00:00:00.438Z",
+        max: "2015-04-21T00:00:00.438Z",
+        start: "2015-03-28T00:00:00.438Z",
+        end: "2015-04-31T23:59:00.438Z",
         editable: false
       };
 
       // Create a Timeline
       var timeline = new vis.Timeline(container, items, groups, options);
+      // timeline.focus(1, animate=false);
+      // timeline.fit();
     </script>
     <script type="text/javascript">
       var map = L.map('map').setView([44.43, 26.10], 13);
