@@ -6,13 +6,12 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <style>
       .map {
-        text-align: center;
         height: 400px;
         width: 100%;
       }
     </style>
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="./lib/d3.min.js"></script>
     <script src="./lib/dagre-d3.min.js"></script>
     <script src="./lib/mermaid.slim.js"></script>
@@ -31,6 +30,7 @@
               step5 --- step6(Înscriere Oficiul Stării Civile)
           </div>
         </div>
+      </div>
       <div class="row">
         <div class="span12">
           <div id="map" class="map"></div>
@@ -39,18 +39,17 @@
     </div>
   </body>
     <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.MapQuest({layer: 'sat'})
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
-          zoom: 4
-        })
-      });
+      var view =  new ol.View({
+        center: ol.proj.transform([26.10, 44.43], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 12
+      })
+      var map = new ol.Map({target: 'map', view: view});
+      var background = new ol.layer.Tile(
+        {
+          source: new ol.source.OSM({}),
+        }
+      )
+      map.addLayer(background)
     </script>
 </html>
 
