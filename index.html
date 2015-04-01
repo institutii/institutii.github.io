@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="./lib/leaflet.css" />
+    <link rel="stylesheet" href="./lib/leaflet/leaflet.css" />
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="./lib/d3.min.js"></script>
     <script src="./lib/dagre-d3.min.js"></script>
     <script src="./lib/mermaid.slim.js"></script>
-    <script src="./lib/leaflet.js"></script>
+    <script src="./lib/leaflet/leaflet.js"></script>
     <style type="text/css">
       .default {
         fill:#eaeaea;
@@ -84,6 +84,7 @@
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           }
       ).addTo(map);
+      L.marker([44.43, 26.10]).addTo(map);
     </script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   </body>
