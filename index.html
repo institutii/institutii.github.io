@@ -15,16 +15,20 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="mermaid">
-            graph LR
-              step1(Analize Medicale)
-              step1 --- step2(Certificat Prenupţial)
-              step2 --- step3(Taxă Poştă)
-              step3 --- step4(Întocmire Dosar)
-              step4 --- step5(Alegere nume)
-              step5 --- step6(Înscriere Dosar)
-          </div>
+        <div class="col-md-12 text-center mermaid">
+          graph LR
+            step1(Rezervare dată)
+            step2.1.1(Analize Medicale)
+            step2.1.2(Certificat Prenupţial)
+            step2.2(Taxă poştă)
+            step3(Depunere dosar)
+            step4(Eveniment)
+            step1 --- step2.1.1
+            step1 --- step2.2
+            step2.1.1 --- step2.1.2
+            step2.1.2 --- step3
+            step2.2 --- step3
+            step3 --- step4
         </div>
       </div>
       <div class="row">
