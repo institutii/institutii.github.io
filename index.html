@@ -64,35 +64,47 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-12 text-center">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="mermaid">
-              graph LR
-                step1(Rezervare dată)
-                step2.1.1(Analize Medicale)
-                step2.1.2(Certificat Prenupţial)
-                step2.2(Taxă poştă)
-                step3(Depunere dosar)
-                step4(Eveniment)
-                step1 --- step2.1.1
-                step1 --- step2.2
-                step2.1.1 --- step2.1.2
-                step2.1.2 --- step3
-                step2.2 --- step3
-                step3 --- step4
-                class step1,step3,step4 greenyellow
-                class step2.1.1,step2.1.2 orange
-                class step2.2 aquamarine
-            </div>
-            <div id="map" class="map" style="height: 180px;"></div>
+        <div class="col-md-6">
+          <div id="map" class="map" style="height: 300px;"></div>
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="mermaid">
+            graph LR
+              step1(Rezervare dată)
+              step2.1.1(Analize Medicale)
+              step2.1.2(Certificat Prenupţial)
+              step2.2(Taxă poştă)
+              step3(Depunere dosar)
+              step4(Eveniment)
+              step1 --- step2.1.1
+              step1 --- step2.2
+              step2.1.1 --- step2.1.2
+              step2.1.2 --- step3
+              step2.2 --- step3
+              step3 --- step4
+              class step1,step3,step4 greenyellow
+              class step2.1.1,step2.1.2 orange
+              class step2.2 aquamarine
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
         </div>
       </div>
     </div>
   </div>
     <script type="text/javascript">
-      var map = L.map('map').setView([44.4392228, 26.1174093], 11);
+      var map = L.map('map');
+      var bounds = new L.LatLngBounds(
+        [
+          [44.4392228, 26.1174093],
+          [44.4539288, 26.1156489],
+          [44.4513982, 26.1209212],
+        ]
+      );
+      map.fitBounds(bounds);
+      map.setZoom(13);
 
       // add an OpenStreetMap tile layer
       L.tileLayer(
