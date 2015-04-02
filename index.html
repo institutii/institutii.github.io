@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="./lib/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="./lib/vector-markers/Leaflet.vector-markers.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="./lib/d3.min.js"></script>
     <script src="./lib/dagre-d3.min.js"></script>
     <script src="./lib/mermaid.slim.js"></script>
     <script src="./lib/leaflet/leaflet.js"></script>
+    <script src="./lib/vector-markers/Leaflet.vector-markers.min.js"></script>
     <style type="text/css">
       body {
         background-image: url('./lib/texture.gif');
@@ -29,7 +32,7 @@
         stroke:#666;
         stroke-width:1.5px;
       }
-      .start {
+      .greenyellow {
         fill: greenyellow;
         stroke: green;
       }
@@ -38,13 +41,13 @@
       }
 
       .orange {
-        background-color: gold;
-        border-color: orange;
+        fill: gold;
+        stroke: orange;
       }
 
-      .blue {
-        background-color: aquamarine;
-        border-color: #40806A;
+      .aquamarine {
+        fill: aquamarine;
+        stroke: #40806A;
       }
 
       .red {
@@ -61,33 +64,35 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-12 text-center mermaid">
-          graph LR
-            step1(Rezervare dată)
-            step2.1.1(Analize Medicale)
-            step2.1.2(Certificat Prenupţial)
-            step2.2(Taxă poştă)
-            step3(Depunere dosar)
-            step4(Eveniment)
-            step1 --- step2.1.1
-            step1 --- step2.2
-            step2.1.1 --- step2.1.2
-            step2.1.2 --- step3
-            step2.2 --- step3
-            step3 --- step4
-            class step1 start
-            class step2.1.1,step2.1.2,step2.2,step3 default
-            class step4 end
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div id="map" class="map" style="height: 180px;"></div>
+        <div class="col-md-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="mermaid">
+              graph LR
+                step1(Rezervare dată)
+                step2.1.1(Analize Medicale)
+                step2.1.2(Certificat Prenupţial)
+                step2.2(Taxă poştă)
+                step3(Depunere dosar)
+                step4(Eveniment)
+                step1 --- step2.1.1
+                step1 --- step2.2
+                step2.1.1 --- step2.1.2
+                step2.1.2 --- step3
+                step2.2 --- step3
+                step3 --- step4
+                class step1,step3,step4 greenyellow
+                class step2.1.1,step2.1.2 orange
+                class step2.2 aquamarine
+            </div>
+            <div id="map" class="map" style="height: 180px;"></div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
     <script type="text/javascript">
-      var map = L.map('map').setView([44.43, 26.10], 13);
+      var map = L.map('map').setView([44.4392228, 26.1174093], 11);
 
       // add an OpenStreetMap tile layer
       L.tileLayer(
@@ -96,7 +101,18 @@
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           }
       ).addTo(map);
-      L.marker([44.43, 26.10]).addTo(map);
+      L.marker(
+        [44.4392228, 26.1174093],
+        {icon: L.VectorMarkers.icon({markerColor: "greenyellow", size: "m"})}
+      ).addTo(map);
+      L.marker(
+        [44.4539288, 26.1156489],
+        {icon: L.VectorMarkers.icon({markerColor: "gold", size: "m"})}
+      ).addTo(map);
+      L.marker(
+        [44.4513982, 26.1209212],
+        {icon: L.VectorMarkers.icon({markerColor: "aquamarine", size: "m"})}
+      ).addTo(map);
     </script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   </body>
